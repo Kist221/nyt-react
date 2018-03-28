@@ -6,18 +6,18 @@ import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn } from "../../components/Form";
 
-class Books extends Component {
+class Articles extends Component {
   state = {
-    books: []
+    articles: []
   };
 
   componentDidMount() {
-    this.loadBooks();
+    this.loadArticles();
   }
 
-  loadBooks = () => {
-    API.getBooks()
-      .then(res => this.setState({ books: res.data }))
+  loadArticles = () => {
+    API.getArticles()
+      .then(res => this.setState({ articles: res.data }))
       .catch(err => console.log(err));
   };
 
@@ -27,26 +27,26 @@ class Books extends Component {
         <Row>
           <Col size="md-6">
             <Jumbotron>
-              <h1>What Books Should I Read?</h1>
+              <h1>What Articles Should I Read?</h1>
             </Jumbotron>
             <form>
               <Input name="title" placeholder="Title (required)" />
               <Input name="author" placeholder="Author (required)" />
               <TextArea name="synopsis" placeholder="Synopsis (Optional)" />
-              <FormBtn>Submit Book</FormBtn>
+              <FormBtn>Submit Article</FormBtn>
             </form>
           </Col>
           <Col size="md-6 sm-12">
             <Jumbotron>
-              <h1>Books On My List</h1>
+              <h1>Articles On My List</h1>
             </Jumbotron>
-            {this.state.books.length ? (
+            {this.state.articles.length ? (
               <List>
-                {this.state.books.map(book => (
-                  <ListItem key={book._id}>
-                    <a href={"/books/" + book._id}>
+                {this.state.articles.map(article => (
+                  <ListItem key={article._id}>
+                    <a href={"/articles/" + article._id}>
                       <strong>
-                        {book.title} by {book.author}
+                        {article.title} by {article.author}
                       </strong>
                     </a>
                     <DeleteBtn />
@@ -63,4 +63,4 @@ class Books extends Component {
   }
 }
 
-export default Books;
+export default Articles;
