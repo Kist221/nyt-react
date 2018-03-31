@@ -10,7 +10,11 @@ router.route("/")
 router
   .route("/:id")
   .get(articlesController.findById)
-  .put(articlesController.update)
   .delete(articlesController.remove);
+
+// Matches with "/api/articles/:search"
+router
+  .route("/:search")
+  .get(articlesController.findById);
 
 module.exports = router;
