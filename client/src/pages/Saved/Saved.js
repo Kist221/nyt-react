@@ -28,19 +28,6 @@ class Articles extends Component {
     });
   };
 
-  handleFormSubmit = event => {
-    event.preventDefault();
-    if (this.state.title && this.state.author) {
-      API.saveArticle({
-        title: this.state.title,
-        author: this.state.author,
-        synopsis: this.state.synopsis
-      })
-        .then(res => this.setState({articles: [...this.state.articles, res.data]}))
-        .catch(err => console.log(err));
-    }
-  };
-
   render() {
     return (
       <Container fluid>
