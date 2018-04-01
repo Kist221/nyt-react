@@ -8,18 +8,7 @@ import { List, ListItem } from "../../components/List";
 
 class Articles extends Component {
   state = {
-    articles: [],
     search: ""
-  };
-
-  componentDidMount() {
-    this.loadArticles();
-  }
-
-  loadArticles = () => {
-    API.getArticles()
-      .then(res => this.setState({ articles: res.data }))
-      .catch(err => console.log(err));
   };
 
   handleInputChange = event => {
@@ -31,13 +20,10 @@ class Articles extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    if (this.state.title && this.state.author) {
-      API.saveArticle({
-        title: this.state.title,
-        author: this.state.author,
-        synopsis: this.state.synopsis
-      })
-        .then(res => this.setState({articles: [...this.state.articles, res.data]}))
+    if (this.state.search) {
+      API.searchArticles( this.state.search )
+        .then(res => this.setState({articles: res}))
+        .then(() => console.log( this.state.articles ))
         .catch(err => console.log(err));
     }
   };
@@ -64,14 +50,18 @@ class Articles extends Component {
                 </FormBtn>
               </form>
             </Jumbotron>
-            {this.state.articles.length ? (
+            {this.state.articles ? (
               <List>
                 {this.state.articles.map(article => (
-                  <ListItem key={article._id}>
-                    <a href={"/articles/" + article._id}>
+                  <ListItem key={article.web_url}>
+                    <a href={article.web_url} target="_blank" rel="noopener">
                       <strong>
-                        {article.title} by {article.author}
+                        {article.headline.main} - {article.byline.original}
                       </strong>
+                      <br />
+                      <sub>
+                        {article.pub_date.slice(0, 10)}
+                      </sub>
                     </a>
                     <DeleteBtn />
                   </ListItem>
