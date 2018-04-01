@@ -19,7 +19,7 @@ class Articles extends Component {
       date: pub_date
     }
     API.saveArticle(articleData)
-      .then(res => alert("Saved Article"))
+      .then(res => alert("Article Saved!"))
       .catch(err => console.log(err));
   };
 

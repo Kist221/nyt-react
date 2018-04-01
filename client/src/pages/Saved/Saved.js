@@ -48,11 +48,11 @@ class Articles extends Component {
                   <ListItem key={article._id}>
                     <a href={article.url} target="_blank" rel="noopener">
                       <strong>
-                        {article.headline} - {article.byline}
+                        {article.headline || "NA"} - {article.byline || "NA"}
                       </strong>
                       <br />
                       <sub>
-                        {article.date}
+                        {article.date || Date.now()}
                       </sub>
                     </a>
                     <DeleteBtn onClick={() => this.deleteArticle(article._id)} />
