@@ -21,6 +21,12 @@ class Articles extends Component {
       .catch(err => console.log(err));
   };
 
+  deleteArticle = id => {
+    API.deleteArticle(id)
+      .then(res => this.loadArticles())
+      .catch(err => console.log(err));
+  };
+
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
@@ -39,7 +45,7 @@ class Articles extends Component {
             {this.state.articles.length ? (
               <List>
                 {this.state.articles.map(article => (
-                  <ListItem key={article.url}>
+                  <ListItem key={article._id}>
                     <a href={article.url} target="_blank" rel="noopener">
                       <strong>
                         {article.headline} - {article.byline}
@@ -49,7 +55,7 @@ class Articles extends Component {
                         {article.date}
                       </sub>
                     </a>
-                    <DeleteBtn />
+                    <DeleteBtn onClick={() => this.deleteArticle(article._id)} />
                   </ListItem>
                 ))}
               </List>
