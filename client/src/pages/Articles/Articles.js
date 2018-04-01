@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
-import DeleteBtn from "../../components/DeleteBtn";
+import SaveBtn from "../../components/SaveBtn";
 import { Input, FormBtn } from "../../components/Form";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
@@ -23,7 +23,6 @@ class Articles extends Component {
     if (this.state.search) {
       API.searchArticles( this.state.search )
         .then(res => this.setState({articles: res}))
-        .then(() => console.log( this.state.articles ))
         .catch(err => console.log(err));
     }
   };
@@ -63,7 +62,7 @@ class Articles extends Component {
                         {article.pub_date.slice(0, 10)}
                       </sub>
                     </a>
-                    <DeleteBtn />
+                    <SaveBtn />
                   </ListItem>
                 ))}
               </List>
