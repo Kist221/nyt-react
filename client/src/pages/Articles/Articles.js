@@ -11,6 +11,18 @@ class Articles extends Component {
     search: ""
   };
 
+  saveArticle = (url, headline, byline, pub_date) => {
+    const articleData = {
+      url: url,
+      headline: headline,
+      byline: byline,
+      date: pub_date
+    }
+    API.saveArticle(articleData)
+      .then(res => alert("Saved Article"))
+      .catch(err => console.log(err));
+  };
+
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
@@ -55,14 +67,14 @@ class Articles extends Component {
                   <ListItem key={article.web_url}>
                     <a href={article.web_url} target="_blank" rel="noopener">
                       <strong>
-                        {article.headline.main} - {article.byline.original}
+                        {article.headline.main || "NA"} - {article.byline.original || "NA"}
                       </strong>
                       <br />
                       <sub>
-                        {article.pub_date.slice(0, 10)}
+                        {article.pub_date.slice(0, 10) || Date.now()}
                       </sub>
                     </a>
-                    <SaveBtn />
+                    <SaveBtn onClick={() => this.saveArticle(article.web_url, article.headline.main, article.byline.original, article.pub_date.slice(0, 10))} />
                   </ListItem>
                 ))}
               </List>

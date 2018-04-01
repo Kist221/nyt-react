@@ -39,11 +39,15 @@ class Articles extends Component {
             {this.state.articles.length ? (
               <List>
                 {this.state.articles.map(article => (
-                  <ListItem key={article._id}>
-                    <a href={"/articles/" + article._id}>
+                  <ListItem key={article.url}>
+                    <a href={article.url} target="_blank" rel="noopener">
                       <strong>
-                        {article.title} by {article.author}
+                        {article.headline} - {article.byline}
                       </strong>
+                      <br />
+                      <sub>
+                        {article.date}
+                      </sub>
                     </a>
                     <DeleteBtn />
                   </ListItem>
